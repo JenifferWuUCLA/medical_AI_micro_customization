@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Medical AI Micro Customization
 #### 医护微定制应用产品开发
 #### A draft version of [Medical AI Micro Customization](https://github.com/JenifferWuUCLA/medical_AI_micro_customization).
@@ -26,10 +25,4 @@ The steps are as follows:
 3. Navigate to the `medical_AI_micro_customization` directory from the command line and run `serve`.
 4. Go to [http://localhost:5000](http://localhost:5000) in your browser to see the application.
 
-![Main Page](https://cloud.githubusercontent.com/assets/590361/5189656/d783d758-749c-11e4-88a4-a3ac01ea0aac.png)
-
-
-=======
-# medical_AI_micro_customization
-医护微定制应用产品开发
->>>>>>> 1dd673118c50d245a91b3d5a1f98380ae03d053f
+![Main Page](https://github.com/JenifferWuUCLA/medical_AI_micro_customization/blob/master/image/Medical%20AI%20Search.png)
