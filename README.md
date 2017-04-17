@@ -25,4 +25,6 @@ The steps are as follows:
 3. Navigate to the `medical_AI_micro_customization` directory from the command line and run `serve`.
 4. Go to [http://localhost:5000](http://localhost:5000) in your browser to see the application.
 
-![Main Page](https://github.com/JenifferWuUCLA/medical_AI_micro_customization/blob/master/image/Medical%20AI%20Search.png)
+![Search Page](https://github.com/JenifferWuUCLA/medical_AI_micro_customization/blob/master/image/Medical%20AI%20Search.png)
+
+![Profile Page](https://github.com/JenifferWuUCLA/medical_AI_micro_customization/blob/master/image/patient's%20profile%20detail.png)
