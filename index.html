@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,13 +18,27 @@
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">-->
     <script src="http://underscorejs.org/underscore.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
-    <script src="app.js"></script>
+    <!--<script src="app.js"></script>-->
     <script src="main.ctrl.js"></script>
+
+    <!-- Angular-popups & ngDatepicker core CSS -->
+    <!--<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="src/css/ngDatepicker.css">
+
+    <!-- Angular-popups & ngDatepicker core JavaScript -->
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="dist/angular-popups.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="src/js/ngDatepicker.js"></script>
   </head>
 
   <body>
-  <div ng-app="myApp">
-    <div ng-controller="TableCtrl">
+  <div>
+    <!--<div ng-controller="TableCtrl">-->
+    <!--<div ng-controller="RadioController">-->
+    <div ng-controller="Ctrl as ctrl">
     <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
       <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -46,14 +60,50 @@
             <a class="nav-link" href="#">Help</a>
           </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0">
+        <form id="boxid" class="form-inline mt-2 mt-md-0">
           <div class="input-group">
-            <input class="form-control mr-sm-2" ng-model="searchText" placeholder="Search" type="search" ng-change="search()"/>
+            <input class="form-control mr-sm-2" ng-model="searchText" placeholder="Search" type="search" ng-change="search()" ng-click="dialog={open: true}"/>
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-search"></span>
             </span>
           </div>
         </form>
+
+        <dialog ng-if="dialog.open" for="boxid" close="dialog.open=false" close-action="esc outerchick">
+          <div dialog-title><div style="color:darkgrey">Advanced search</div></div>
+          <div dialog-content>
+            <div>
+              <table style="width:100%">
+                <tr>
+                  <td>
+                    <h6>Gender</h6>
+                  </td>
+                  <td style="align:right">
+                    <span><input type="radio" name="SGender" ng-change="RadioChange('M')" ng-model="Gender" value="M" /> Male </span>
+                    <span><input type="radio" name="SGender" ng-change="RadioChange('F')" ng-model="Gender" value="F" /> Female </span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+              <!--<pre ng-bind="searchText | json"></pre>-->
+
+
+            <div>
+              <table style="width:100%">
+                <tr>
+                  <td>
+                    <h6>DOB</h6	>
+                  </td>
+                  <td style="align:right">
+                    <ng-datepicker ng-model="ctrl.dobDate" ng-change="DateChange()" first-week-day-sunday="true" placeholder="MM/DD/YYYY" format="MM/DD/YYYY" view-format="MM/DD/YYYY">
+                    </ng-datepicker>
+                  </td>
+                </tr>
+              </table>
+              <!--<pre ng-bind="searchText | json"></pre>-->
+            </div>
+          </div>
+        </dialog>
       </div>
     </nav>
 
@@ -119,6 +169,8 @@
         </main>
       </div>
     </div>
+    <!--</div>
+    </div>-->
     </div>
     <!-- Ends Controller -->
   </div>

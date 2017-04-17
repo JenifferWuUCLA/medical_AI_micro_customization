@@ -1,11 +1,14 @@
 //Demo of Searching Sorting and Pagination of Table with AngularJS - Advance Example
 
-var myApp = angular.module('myApp', []);
+//var myApp = angular.module('myApp', []);
+var myApp = angular.module("myApp", ['angular-popups', 'jkuri.datepicker']);
+
 
 //Not Necessary to Create Service, Same can be done in COntroller also as method like add() method
 myApp.service('filteredListService', function () {
 
     this.searched = function (valLists, toSearch) {
+        //alert('toSearch: '+toSearch);
         return _.filter(valLists,
 
             function (i) {
@@ -17,19 +20,26 @@ myApp.service('filteredListService', function () {
     this.paged = function (valLists, pageSize) {
         retVal = [];
         for (var i = 0; i < valLists.length; i++) {
+            //alert('valLists[i]: '+valLists[i].name+', '+valLists[i].gender);
             if (i % pageSize === 0) {
                 retVal[Math.floor(i / pageSize)] = [valLists[i]];
             } else {
                 retVal[Math.floor(i / pageSize)].push(valLists[i]);
             }
         }
+
+        /*for (var i = 0; i < retVal.length; i++) {
+            alert('retVal[i]: '+JSON.stringify(retVal[i]));
+        }*/
         return retVal;
     };
 
 });
 
 //Inject Custom Service Created by us and Global service $filter. This is one way of specifying dependency Injection
-var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filteredListService) {
+var TableCtrl = myApp.controller('Ctrl', function ($scope, $filter, filteredListService) {
+
+    //alert('$scope_TableCtrl: '+JSON.stringify($scope));
 
     $scope.pageSize = 4;
     $scope.allItems = getDummyData();
@@ -67,9 +77,37 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
         $scope.pagination();
     }
 
+    $scope.Gender = "M";
+
+    $scope.RadioChange = function (s) {
+        $scope.GenderSelected = s;
+
+        $scope.filteredList = filteredListService.searched($scope.allItems, $scope.GenderSelected);
+
+        if ($scope.GenderSelected == '') {
+            //alert('all');
+            $scope.filteredList = $scope.allItems;
+        }
+
+        $scope.pagination();
+    };
+
+    $scope.DateChange = function () {
+        $scope.filteredList = filteredListService.searched($scope.allItems, $scope.ctrl.dobDate);
+
+        if ($scope.ctrl.dobDate == '') {
+            //alert('all');
+            $scope.filteredList = $scope.allItems;
+        }
+
+        $scope.pagination();
+    };
+
+
     // Calculate Total Number of Pages based on Search Result
     $scope.pagination = function () {
         $scope.ItemsByPage = filteredListService.paged($scope.filteredList, $scope.pageSize);
+        //alert('$scope.ItemsByPage_TableCtrl: '+JSON.stringify($scope.ItemsByPage));
     };
 
     $scope.setPage = function () {
@@ -95,6 +133,7 @@ var TableCtrl = myApp.controller('TableCtrl', function ($scope, $filter, filtere
                 ret.push(i);
             }
         }
+        //alert('ret_TableCtrl: '+JSON.stringify(ret))
         return ret;
     };
 
